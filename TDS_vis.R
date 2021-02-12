@@ -9,8 +9,8 @@ data <- matrix(c(0,0,0,0,1,0,1,0,0,1,1,1), nrow = 4, byrow = TRUE)
 inputs <- data[,-3]
 targets <- data[,3]
 
-W <- matrix(rep(seq(2.5, 8.5, 0.01), 2), nrow = 601, ncol=2)
-err_v <- matrix(nrow = 601, ncol = 601)
+W <- matrix(rep(seq(2.5, 8.5, 0.06), 2), nrow = 101, ncol=2)
+err_v <- matrix(nrow = 101, ncol = 101)
 for (i in 1:nrow(W)){
   err <- c()
   for (k in 1:nrow(W)){
@@ -25,11 +25,9 @@ for (i in 1:nrow(W)){
   }
 }
 
-fig <- plot_ly(x = W[,1], y = W[,2], z = err_v, scene = list(
-  xaxis = list(title = "w1"),
-  yaxis = list(title = "w2"),
-  zaxis = list(title = "error")
-)) %>% add_surface()
+fig <- plot_ly(x = W[,1], y = W[,2], z = err_v) %>% add_surface() %>% layout(scene = list(xaxis = list(title = "w1"),
+                                                                                          yaxis = list(title = "w2"),
+                                                                                          zaxis = list(title = "E")))
 
 api_create(fig, filename = "error_sruface")
 
